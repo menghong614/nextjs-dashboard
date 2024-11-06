@@ -1,0 +1,85 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model customers {
+  id        String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String @db.VarChar(255)
+  email     String @db.VarChar(255)
+  image_url String @db.VarChar(255)
+}
+
+model revenue {
+  month   String @unique @db.VarChar(4)
+  revenue Int
+}
+
+model users {
+  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name     String @db.VarChar(255)
+  email    String @unique
+  password String
+}
+
+model invoices {
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  customer_id String   @db.Uuid
+  amount      Int
+  status      String   @db.VarChar(255)
+  date        DateTime @db.Date
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// model users {
+//   id       String @id @unique @default(uuid())
+//   name     String @db.VarChar(255)
+//   email    String @unique @db.VarChar(255)
+//   password String
+// }
+
+// model customers {
+//   id        Int    @id @unique @default(autoincrement())
+//   name      String @db.VarChar(255)
+//   email     String @unique @db.VarChar(255)
+//   image_url String @db.VarChar(255)
+// }
+
+// model invoices {
+//   id          Int    @id @unique @default(autoincrement())
+//   customer_id Int
+//   amount      Int
+//   status      String @default("pending") @db.VarChar(255)
+//   date        String @db.VarChar(255)
+// }
+
+// model revenue {
+//   month   String @unique @db.VarChar(4)
+//   revenue Int
+// }
